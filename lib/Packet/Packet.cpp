@@ -2,4 +2,5 @@
 
 using namespace trek;
 
-Packet::Packet(int id, uint32_t size) : id(id), size(size) {}
+Packet::Packet(int id, uint32_t size, const Label& label) :
+    id(id), size(size), label(new Label(label.src, label.dest)) {}

@@ -1,7 +1,22 @@
 #pragma once
 #include <cstdint>
+#include <memory>
 
 namespace trek {
+
+/**
+ * Packet Label
+ *
+ * This class indicates both the source and destination nodes
+ * for a particular packet.
+ *
+ */
+struct Label {
+    int src;
+    int dest;
+
+    explicit Label(int src, int dest) : src(src), dest(dest) {}
+};
 
 /**
  * Packet
@@ -16,8 +31,9 @@ public:
      * Create a new packet
      * @param id - packet id
      * @param size - overall packet size
+     * @param label - packet label
      */
-    explicit Packet(int id, uint32_t size);
+    explicit Packet(int id, uint32_t size, const Label& label);
 
     /**
      * Drop the packet
@@ -35,6 +51,7 @@ public:
 protected:
     int id;
     uint32_t size;
+    std::unique_ptr<Label> label;
 };
 
 }
