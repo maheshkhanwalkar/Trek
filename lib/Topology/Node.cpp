@@ -2,9 +2,5 @@
 
 using namespace trek;
 
-Node::Node(int id) : id(id) { }
-
-int Node::getID() const
-{
-    return id;
-}
+Node::Node(int id) : id(id) {}
+int Node::getID() const { return id; }

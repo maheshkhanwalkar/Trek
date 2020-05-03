@@ -1,0 +1,11 @@
+---
+BasedOnStyle: LLVM
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakTemplateDeclarations: 'Yes'
+BreakBeforeBraces: Stroustrup
+Language: Cpp
+SpaceBeforeCtorInitializerColon: true
+Standard: Cpp11
+IndentWidth: 4
+AccessModifierOffset: -4
+...

@@ -16,8 +16,7 @@ namespace trek {
  * Therefore, in order to handle client requests, the node will have to talk to
  * the other nodes, i.e. sending and receiving packets.
  */
-class Node
-{
+class Node {
 public:
     /**
      * Initialise a new node with a given (unique) id
