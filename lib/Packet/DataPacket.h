@@ -15,7 +15,8 @@ public:
      * @param payload - payload data
      * @param label - packet label
      */
-    explicit DataPacket(int id, const std::vector<char>& payload, const Label& label);
+    explicit DataPacket(int id, std::vector<char>&& payload,
+                        const Label& label);
 
 
     void drop() override;

@@ -3,8 +3,7 @@
 
 using namespace trek;
 
-DataPacket::DataPacket(int id, const std::vector<char>& payload,
-                       const Label &label)
+DataPacket::DataPacket(int id, std::vector<char>&& payload, const Label &label)
     : Packet(id, payload.size(), label), payload(payload),
       p_str(payload.data()) {}
 
