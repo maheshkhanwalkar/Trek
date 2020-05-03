@@ -44,6 +44,12 @@ public:
     virtual void drop() = 0;
 
     /**
+     * Get the packet label
+     * @return a const reference to the label
+     */
+    const Label& getLabel() const;
+
+    /**
      * Destroy the packet (default behaviour)
      */
     virtual ~Packet() = default;
