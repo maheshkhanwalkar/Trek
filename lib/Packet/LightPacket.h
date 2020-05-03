@@ -15,6 +15,7 @@ namespace trek {
  * implementation very fast, since there is no need to maintain a payload.
  */
 class LightPacket : public Packet {
+    explicit LightPacket(int id, uint32_t size, const Label& label);
     void drop() override;
 };
 
