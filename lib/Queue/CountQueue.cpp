@@ -11,7 +11,7 @@ void CountQueue::push_back(std::shared_ptr<Packet>&& packet)
         throw std::runtime_error("attempt to add to full queue");
     }
 
-    queue.push_back(packet);
+    queue.push_back(std::move(packet));
 }
 
 bool CountQueue::isFull() { return queue.size() == max; }

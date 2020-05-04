@@ -50,6 +50,12 @@ public:
     const Label& getLabel() const;
 
     /**
+     * Get the size of the packet
+     * @return the size
+     */
+    uint32_t getSize() const;
+
+    /**
      * Destroy the packet (default behaviour)
      */
     virtual ~Packet() = default;
