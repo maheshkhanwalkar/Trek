@@ -4,6 +4,8 @@
 
 namespace trek {
 
+class Node;
+
 /**
  * Packet Label
  *
@@ -12,10 +14,8 @@ namespace trek {
  *
  */
 struct Label {
-    int src;
-    int dest;
-
-    explicit Label(int src, int dest) : src(src), dest(dest) {}
+    std::shared_ptr<Node> src;
+    std::shared_ptr<Node> dest;
 };
 
 /**
