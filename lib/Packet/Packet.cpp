@@ -7,3 +7,9 @@ Packet::Packet(int id, uint32_t size, const Label& label) :
 
 uint32_t Packet::getSize() const { return size; }
 const Label& Packet::getLabel() const { return *label; }
+
+void Packet::setLabel(const Label& n_label)
+{
+    label->src = n_label.src;
+    label->dest = n_label.dest;
+}

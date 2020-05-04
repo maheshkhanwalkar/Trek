@@ -50,6 +50,12 @@ public:
     const Label& getLabel() const;
 
     /**
+     * Update the packet label
+     * @param n_label - new label
+     */
+    void setLabel(const Label& n_label);
+
+    /**
      * Get the size of the packet
      * @return the size
      */
