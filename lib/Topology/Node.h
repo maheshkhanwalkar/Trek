@@ -1,5 +1,8 @@
 #pragma once
 
+#include <unordered_map>
+#include <memory>
+
 namespace trek {
 /**
  * Node representation
@@ -21,8 +24,9 @@ public:
     /**
      * Initialise a new node with a given (unique) id
      * @param id - the node id
+     * @param router - is the node a router?
      */
-    explicit Node(int id);
+    explicit Node(int id, bool router);
 
     /**
      * Get the current node's id
@@ -30,8 +34,15 @@ public:
      */
     int getID() const;
 
+    /**
+     * Get whether the current node is a router
+     * @return true if it is, false otherwise
+     */
+    bool isRouter() const;
+
 private:
     int id;
+    bool router;
 };
 
 }

@@ -1,4 +1,4 @@
 project(Topology)
 
-set(SOURCES Node.cpp)
+set(SOURCES Node.cpp Link.cpp)
 add_library(Topology ${SOURCES})
