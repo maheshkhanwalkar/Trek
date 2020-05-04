@@ -27,7 +27,7 @@ public:
      * @param packet - packet to add
      * @throws std::runtime_error if the queue is full
      */
-    void push_back(std::shared_ptr<Packet>&& packet) override;
+    void push_back(const std::shared_ptr<Packet>& packet) override;
 
     /**
      * Check whether the queue is full

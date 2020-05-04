@@ -25,7 +25,7 @@ public:
      * Add a new packet to the queue
      * @param packet - packet to add
      */
-    virtual void push_back(std::shared_ptr<Packet>&& packet);
+    virtual void push_back(const std::shared_ptr<Packet>& packet);
 
 
     /**
