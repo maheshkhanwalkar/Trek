@@ -54,6 +54,12 @@ public:
      */
     virtual bool isFull();
 
+
+    /**
+     * Destroy the queue (default behaviour)
+     */
+    virtual ~Queue() = default;
+
 protected:
     std::deque<std::shared_ptr<Packet> > queue;
 };
