@@ -14,4 +14,4 @@ void DataPacket::drop()
 }
 
 const std::vector<char>& DataPacket::getPayload() const { return payload; }
-const std::string & DataPacket::payloadAsStr() const { return p_str; }
+const std::string& DataPacket::payloadAsStr() const { return p_str; }

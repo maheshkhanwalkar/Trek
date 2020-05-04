@@ -7,4 +7,5 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic -Werror -Wshadow -Wold-style-cast")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS} -O0 -g")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -O2")
 
+include_directories(.)
 add_subdirectory(lib)
