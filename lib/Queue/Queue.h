@@ -4,6 +4,7 @@
 
 #include <deque>
 #include <memory>
+#include <cstddef>
 
 namespace trek {
 
@@ -38,6 +39,13 @@ public:
      * Pop the first packet from the queue
      */
     virtual void pop_front();
+
+
+    /**
+     * Get the size of the queue
+     * @return the size
+     */
+    virtual size_t size() const;
 
 
     /**
