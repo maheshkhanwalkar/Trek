@@ -2,9 +2,9 @@
 
 using namespace trek;
 
-void Queue::push_back(const std::shared_ptr<Packet>& packet)
+void Queue::push_back(std::shared_ptr<Packet> packet)
 {
-    queue.push_back(packet);
+    queue.push_back(std::move(packet));
 }
 
 const Packet& Queue::peek() const { return *queue.at(0); }

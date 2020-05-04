@@ -20,11 +20,10 @@ public:
      * Initiate a transfer on the link
      * @param which - originating node
      * @param packet - packet to transfer
-     * @throws
+     * @throws std::runtime_error if the link is currently busy
      */
     virtual void initiate(const std::shared_ptr<Node>& which,
                           std::shared_ptr<Packet> packet);
-
 
     /**
      * Perform a packet transfer for the simulation time-slice

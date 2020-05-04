@@ -1,5 +1,7 @@
 #pragma once
 
+#include "lib/Queue/Queue.h"
+
 #include <unordered_map>
 #include <memory>
 
@@ -25,8 +27,9 @@ public:
      * Initialise a new node with a given (unique) id
      * @param id - the node id
      * @param router - is the node a router?
+     * @param queue - incoming packet queue to use
      */
-    explicit Node(int id, bool router);
+    explicit Node(int id, bool router, std::unique_ptr<Queue>&& queue);
 
     /**
      * Get the current node's id
@@ -40,9 +43,16 @@ public:
      */
     bool isRouter() const;
 
+    /**
+     * Add a packet to the incoming queue
+     * @param packet - packet to add
+     */
+    void add_packet(std::shared_ptr<Packet> packet);
+
 private:
     int id;
     bool router;
+    std::unique_ptr<Queue> queue;
 };
 
 }
