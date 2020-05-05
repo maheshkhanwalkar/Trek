@@ -10,6 +10,15 @@ namespace trek {
 class Link {
 public:
     /**
+     * Construct a new link between nodes
+     * @param first - first node
+     * @param second - second node
+     * @param duplex - can both nodes send data at the same time?
+     */
+    explicit Link(std::shared_ptr<Node> first, std::shared_ptr<Node> second,
+                  bool duplex);
+
+    /**
      * Get whether the link is busy
      * @param which - requesting node
      * @return true if busy, false otherwise
@@ -36,15 +45,6 @@ public:
     virtual ~Link() = default;
 
 protected:
-    /**
-     * Construct a new link between nodes
-     * @param first - first node
-     * @param second - second node
-     * @param duplex - can both nodes send data at the same time?
-     */
-    explicit Link(std::shared_ptr<Node>  first,
-                  std::shared_ptr<Node>  second, bool duplex);
-
     std::shared_ptr<Node> first, second;
     std::shared_ptr<Packet> f_curr, s_curr;
 

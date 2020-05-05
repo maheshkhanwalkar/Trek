@@ -7,8 +7,10 @@ ByteQueue::ByteQueue(uint64_t b_max) : b_max(b_max), b_curr(0) {}
 
 void ByteQueue::push_back(std::shared_ptr<Packet> packet)
 {
+    // Drop the packet if the queue is full
     if(b_curr + packet->getSize() == b_max) {
-        throw std::runtime_error("attempt to add to full queue");
+        packet->drop();
+        return;
     }
 
     b_curr += packet->getSize();

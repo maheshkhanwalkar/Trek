@@ -7,8 +7,10 @@ CountQueue::CountQueue(size_t max) : max(max) {}
 
 void CountQueue::push_back(std::shared_ptr<Packet> packet)
 {
+    // Drop the packet if the queue is full
     if(queue.size() == max) {
-        throw std::runtime_error("attempt to add to full queue");
+        packet->drop();
+        return;
     }
 
     queue.push_back(std::move(packet));
