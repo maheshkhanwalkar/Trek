@@ -16,13 +16,13 @@ void InstantLink::transfer()
     // that at most one of the packet slots will be filled, so no check is
     // performed here
 
-    if(f_curr != nullptr) {
-        first->add_packet(f_curr);
+    if(f_curr) {
+        second->add_packet(f_curr);
         f_curr = nullptr;
     }
 
-    if(s_curr != nullptr) {
-        second->add_packet(s_curr);
+    if(s_curr) {
+        first->add_packet(s_curr);
         s_curr = nullptr;
     }
 }

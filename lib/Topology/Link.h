@@ -23,7 +23,7 @@ public:
      * @param which - requesting node
      * @return true if busy, false otherwise
      */
-    bool isBusy(const std::shared_ptr<Node>& which);
+    virtual bool isBusy(const std::shared_ptr<Node>& which);
 
     /**
      * Initiate a transfer on the link
