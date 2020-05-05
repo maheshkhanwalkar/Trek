@@ -11,3 +11,4 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CXX_FLAGS} -O2")
 
 include_directories(.)
 add_subdirectory(lib)
+add_subdirectory(test)
