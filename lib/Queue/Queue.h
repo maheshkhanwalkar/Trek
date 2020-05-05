@@ -25,7 +25,7 @@ public:
      * Add a new packet to the queue
      * @param packet - packet to add
      */
-    virtual void push_back(std::shared_ptr<Packet> packet);
+    virtual void push_back(std::unique_ptr<Packet> packet);
 
 
     /**
@@ -61,7 +61,7 @@ public:
     virtual ~Queue() = default;
 
 protected:
-    std::deque<std::shared_ptr<Packet> > queue;
+    std::deque<std::unique_ptr<Packet> > queue;
 };
 
 }

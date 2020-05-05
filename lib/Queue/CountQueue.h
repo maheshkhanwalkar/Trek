@@ -27,7 +27,7 @@ public:
      * If the queue is full, then the packet is dropped
      * @param packet - packet to add
      */
-    void push_back(std::shared_ptr<Packet> packet) override;
+    void push_back(std::unique_ptr<Packet> packet) override;
 
     /**
      * Check whether the queue is full

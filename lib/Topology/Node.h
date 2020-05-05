@@ -47,7 +47,7 @@ public:
      * Add a packet to the incoming queue
      * @param packet - packet to add
      */
-    void add_packet(std::shared_ptr<Packet> packet);
+    void add_packet(std::unique_ptr<Packet> packet);
 
 private:
     int id;

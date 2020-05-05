@@ -2,7 +2,7 @@
 
 using namespace trek;
 
-void Queue::push_back(std::shared_ptr<Packet> packet)
+void Queue::push_back(std::unique_ptr<Packet> packet)
 {
     queue.push_back(std::move(packet));
 }

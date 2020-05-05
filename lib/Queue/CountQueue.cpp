@@ -5,7 +5,7 @@ using namespace trek;
 
 CountQueue::CountQueue(size_t max) : max(max) {}
 
-void CountQueue::push_back(std::shared_ptr<Packet> packet)
+void CountQueue::push_back(std::unique_ptr<Packet> packet)
 {
     // Drop the packet if the queue is full
     if(queue.size() == max) {

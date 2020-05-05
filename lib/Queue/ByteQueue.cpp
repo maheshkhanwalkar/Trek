@@ -5,7 +5,7 @@ using namespace trek;
 
 ByteQueue::ByteQueue(uint64_t b_max) : b_max(b_max), b_curr(0) {}
 
-void ByteQueue::push_back(std::shared_ptr<Packet> packet)
+void ByteQueue::push_back(std::unique_ptr<Packet> packet)
 {
     // Drop the packet if the queue is full
     if(b_curr + packet->getSize() == b_max) {
