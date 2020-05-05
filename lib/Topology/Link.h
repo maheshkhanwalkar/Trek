@@ -23,7 +23,7 @@ public:
      * @param which - requesting node
      * @return true if busy, false otherwise
      */
-    virtual bool isBusy(const std::shared_ptr<Node>& which);
+    virtual bool isBusy(const Node* which);
 
     /**
      * Initiate a transfer on the link
@@ -31,8 +31,7 @@ public:
      * @param packet - packet to transfer
      * @throws std::runtime_error if the link is currently busy
      */
-    virtual void initiate(const std::shared_ptr<Node>& which,
-                          std::shared_ptr<Packet> packet);
+    virtual void initiate(const Node* which, std::shared_ptr<Packet> packet);
 
     /**
      * Perform a packet transfer for the simulation time-slice
