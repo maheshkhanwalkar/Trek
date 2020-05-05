@@ -3,8 +3,8 @@
 
 using namespace trek;
 
-InstantLink::InstantLink(std::shared_ptr<Node> first,
-                         std::shared_ptr<Node> second, bool duplex)
+InstantLink::InstantLink(std::weak_ptr<Node> first,
+                         std::weak_ptr<Node> second, bool duplex)
     : Link(std::move(first), std::move(second), duplex)
 {
 
@@ -17,12 +17,16 @@ void InstantLink::transfer()
     // performed here
 
     if(f_curr) {
-        second->add_packet(f_curr);
+        std::shared_ptr<Node> s_tmp = second.lock();
+        s_tmp->add_packet(std::move(f_curr));
+
         f_curr = nullptr;
     }
 
     if(s_curr) {
-        first->add_packet(s_curr);
+        std::shared_ptr<Node> f_tmp = first.lock();
+        f_tmp->add_packet(std::move(s_curr));
+
         s_curr = nullptr;
     }
 }

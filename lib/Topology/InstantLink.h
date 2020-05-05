@@ -22,8 +22,8 @@ public:
      * @param second - second
      * @param duplex - both sides can transmit at the same time
      */
-    explicit InstantLink(std::shared_ptr<Node> first,
-                         std::shared_ptr<Node> second, bool duplex);
+    explicit InstantLink(std::weak_ptr<Node> first,
+                         std::weak_ptr<Node> second, bool duplex);
 
     /**
      * Perform the transfer instantly

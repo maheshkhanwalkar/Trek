@@ -15,8 +15,8 @@ public:
      * @param throughput - maximum link throughput in bits per second
      * @param slice - simulation time slice in seconds (e.g. 0.001 => 1 ms)
      */
-    explicit CapacityLink(std::shared_ptr<Node> first,
-                          std::shared_ptr<Node> second, bool duplex,
+    explicit CapacityLink(std::weak_ptr<Node> first,
+                          std::weak_ptr<Node> second, bool duplex,
                           uint64_t throughput, double slice);
 
     void transfer() override;
