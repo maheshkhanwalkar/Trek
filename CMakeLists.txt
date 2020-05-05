@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(Trek)
 
+enable_testing()
 set(CMAKE_CXX_STANDARD 14)
 
 set(CXX_FLAGS "-Wall -Wextra -pedantic -Werror -Wshadow -Wold-style-cast\
