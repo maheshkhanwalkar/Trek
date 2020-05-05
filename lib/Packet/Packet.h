@@ -14,8 +14,8 @@ class Node;
  *
  */
 struct Label {
-    std::shared_ptr<Node> src;
-    std::shared_ptr<Node> dest;
+    std::weak_ptr<Node> src;
+    std::weak_ptr<Node> dest;
 };
 
 /**
