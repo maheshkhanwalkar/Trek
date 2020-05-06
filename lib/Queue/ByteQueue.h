@@ -29,6 +29,17 @@ public:
     void push_back(std::unique_ptr<Packet> packet) override;
 
     /**
+     * Pop the first packet off the queue, updating the internal
+     * bytes-remaining count
+     */
+    void pop_front() override;
+
+    /**
+     * Clear the queue
+     */
+    void clear() override;
+
+    /**
      * Check if the queue is full
      * @return true if b_curr == b_max, false otherwise
      */

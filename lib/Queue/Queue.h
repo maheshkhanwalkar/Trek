@@ -49,11 +49,16 @@ public:
 
 
     /**
+     * Clear the queue
+     */
+    virtual void clear();
+
+
+    /**
      * Check whether the queue is full (for this implementation, always false)
      * @return true if full, false otherwise
      */
     virtual bool isFull();
-
 
     /**
      * Destroy the queue (default behaviour)

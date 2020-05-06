@@ -4,7 +4,6 @@
 #include "lib/Topology/Node.h"
 
 #include "gtest/gtest.h"
-#include <string>
 
 TEST(PacketTest, BasicCreation)
 {
