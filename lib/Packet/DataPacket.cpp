@@ -5,7 +5,10 @@ using namespace trek;
 
 DataPacket::DataPacket(int id, std::vector<char>&& payload, const Label &label)
     : Packet(id, payload.size(), label), payload(payload),
-      p_str(payload.data()) {}
+      p_str(this->payload.begin(), this->payload.end())
+{
+
+}
 
 void DataPacket::drop()
 {
