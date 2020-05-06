@@ -1,7 +1,7 @@
-project(NodeTest)
+project(TopologyTest)
 
-set(SOURCES NodeTest.cpp)
-add_executable(NodeTest ${SOURCES})
+set(SOURCES NodeTest.cpp LinkTest.cpp)
+add_executable(TopologyTest ${SOURCES})
 
-target_link_libraries(NodeTest gtest gtest_main Topology)
-add_test(NodeTest COMMAND ./NodeTest)
+target_link_libraries(TopologyTest gtest gtest_main Topology)
+add_test(TopologyTest COMMAND ./TopologyTest)
