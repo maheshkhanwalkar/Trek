@@ -14,7 +14,7 @@ CapacityLink::CapacityLink(std::weak_ptr<Node> first,
 void CapacityLink::transfer()
 {
     if(f_curr) {
-        uint64_t bytes = bps * slice / 8;
+        uint64_t bytes = round(bps * slice / 8);
         bf_curr += bytes;
 
         // Transfer complete
@@ -27,7 +27,7 @@ void CapacityLink::transfer()
     }
 
     if(s_curr) {
-        uint64_t bytes = bps * slice / 8;
+        uint64_t bytes = round(bps * slice / 8);
         bs_curr += bytes;
 
         // Transfer complete
