@@ -7,6 +7,20 @@
 
 namespace trek {
 
+/**
+ * Transfer link
+ *
+ * This class represents a transfer link that connects two nodes within
+ * the greater network topology.
+ *
+ * Transfer links can operate in single or duplex mode. In single mode, only one
+ * node can use the link at a time to transfer data. However, in duplex mode,
+ * both of the nodes can transfer at the same time.
+ *
+ * This is an abstract class, so it cannot be used directly. The various
+ * subclasses implement different kinds of links, which may be more or less
+ * useful, depending on the simulation requirements.
+ */
 class Link {
 public:
     /**

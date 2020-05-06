@@ -5,6 +5,16 @@
 
 namespace trek {
 
+/**
+ * Capacity transfer link
+ *
+ * This class represents a link that can transfer data at a specified
+ * throughput, given in bits per second.
+ *
+ * Therefore, it is possible that certain packets will need multiple calls
+ * to transfer() before the link becomes ready again. This calculation is done
+ * using the packet size, link throughput, and simulation time-slice.
+ */
 class CapacityLink : public Link {
 public:
     /**
