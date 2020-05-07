@@ -29,8 +29,7 @@ public:
      * @param second - second node
      * @param duplex - can both nodes send data at the same time?
      */
-    explicit Link(std::weak_ptr<Node> first, std::weak_ptr<Node> second,
-                  bool duplex);
+    explicit Link(Node* first, Node* second, bool duplex);
 
     /**
      * Get whether the link is busy
@@ -58,7 +57,7 @@ public:
     virtual ~Link() = default;
 
 protected:
-    std::weak_ptr<Node> first, second;
+    Node *first, *second;
     std::unique_ptr<Packet> f_curr, s_curr;
 
     bool duplex;
