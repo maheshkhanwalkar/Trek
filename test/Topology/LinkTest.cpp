@@ -25,7 +25,7 @@ TEST(InstantLinkTest, SingleBusyLink)
     std::shared_ptr<trek::Node> first(make_node(0, false));
     std::shared_ptr<trek::Node> second(make_node(1, false));
 
-    trek::Link* link = new trek::InstantLink(first, second, false);
+    trek::Link* link = new trek::InstantLink(first.get(), second.get(), false);
 
     ASSERT_FALSE(link->isBusy(first.get()));
     ASSERT_FALSE(link->isBusy(second.get()));
@@ -48,7 +48,7 @@ TEST(InstantLinkTest, DuplexBusyLink)
     std::shared_ptr<trek::Node> first(make_node(0, false));
     std::shared_ptr<trek::Node> second(make_node(1, false));
 
-    trek::Link* link = new trek::InstantLink(first, second, true);
+    trek::Link* link = new trek::InstantLink(first.get(), second.get(), true);
 
     ASSERT_FALSE(link->isBusy(first.get()));
     ASSERT_FALSE(link->isBusy(second.get()));
@@ -83,7 +83,7 @@ TEST(CapacityLinkTest, CapacityCheck)
 
     // Throughput is in bits per second, but packet size is in bytes
     // Simulation time slice is 1 sec
-    trek::Link* link = new trek::CapacityLink(first, second, true, 1024*8, 1);
+    trek::Link* link = new trek::CapacityLink(first.get(), second.get(), true,1024*8, 1);
 
     ASSERT_FALSE(link->isBusy(first.get()));
     ASSERT_FALSE(link->isBusy(second.get()));
@@ -110,7 +110,7 @@ TEST(CapacityLinkTest, DuplexTest)
 
     // Throughput is in bits per second, but packet size is in bytes
     // Simulation time slice is 1 sec
-    trek::Link* link = new trek::CapacityLink(first, second, true, 1024*8, 1);
+    trek::Link* link = new trek::CapacityLink(first.get(), second.get(), true, 1024*8, 1);
 
     ASSERT_FALSE(link->isBusy(first.get()));
     ASSERT_FALSE(link->isBusy(second.get()));
