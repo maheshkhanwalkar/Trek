@@ -12,12 +12,14 @@ std::string MACAddress::asString()
     uint64_t good = htonll(address);
     std::stringstream stream;
 
-    for(size_t i = 0; i < sizeof(uint64_t) /* 8 bytes */; i++) {
-        unsigned char byte = (good >> (i * 8)) & 0xFF;
-        stream << std::hex << byte;
+    // Skip the two bottom bytes -- since these encode bits 48-63 which are not
+    // actually part of the address
+    for(size_t i = 2; i < 8; i++) {
+        unsigned int byte = (good >> (i * 8)) & 0xFF;
+        stream << std::setfill ('0') << std::setw(2) << std::hex << byte;
 
         // Don't add an extra ':' at the end
-        if(i != sizeof(uint64_t) - 1) {
+        if(i != 7) {
             stream << ":";
         }
     }
