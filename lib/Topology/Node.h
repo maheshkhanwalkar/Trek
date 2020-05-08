@@ -29,7 +29,7 @@ public:
      * @param router - is the node a router?
      * @param queue - incoming packet queue to use
      */
-    explicit Node(int id, bool router, std::unique_ptr<Queue>&& queue);
+    explicit Node(int id, bool router, std::unique_ptr<Queue> queue);
 
     /**
      * Get the current node's id

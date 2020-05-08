@@ -2,7 +2,7 @@
 
 using namespace trek;
 
-Node::Node(int id, bool router, std::unique_ptr<Queue>&& queue)
+Node::Node(int id, bool router, std::unique_ptr<Queue> queue)
     : id(id), router(router), queue(std::move(queue)) {}
 
 int Node::getID() const { return id; }
