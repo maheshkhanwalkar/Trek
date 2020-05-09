@@ -4,7 +4,7 @@
 TEST(MACAddressTest, EqualsDiffClass)
 {
     class CustomAddr : public trek::Address {
-        std::string asString() override { return std::string(); }
+        std::string asString() const override { return std::string(); }
 
         bool operator==(const trek::Address& rhs) const override {
             (void)rhs;

@@ -21,7 +21,7 @@ public:
      * Get the string representation of the MAC address (e.g. FF:FF:FF:FF:FF:FF)
      * @return the representation
      */
-    std::string asString() override;
+    std::string asString() const override;
 
     /**
      * Check whether the two addresses are equal

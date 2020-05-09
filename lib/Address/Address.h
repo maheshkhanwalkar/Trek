@@ -15,7 +15,7 @@ struct Address {
      * Get the string representation of the address
      * @return the representation
      */
-    virtual std::string asString() = 0;
+    virtual std::string asString() const = 0;
 
     /**
      * Check whether the two addresses are equal

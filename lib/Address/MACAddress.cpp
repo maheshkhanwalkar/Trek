@@ -6,7 +6,7 @@ using namespace trek;
 
 MACAddress::MACAddress(uint64_t address) : address(address & 0xFFFFFFFFFFFF) { }
 
-std::string MACAddress::asString()
+std::string MACAddress::asString() const
 {
     // Switch to network (big endian) format
     uint64_t good = htonll(address);
