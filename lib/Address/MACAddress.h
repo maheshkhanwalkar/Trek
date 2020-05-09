@@ -18,7 +18,7 @@ public:
     explicit MACAddress(uint64_t address);
 
     /**
-     * Get the string representation of the MAC address (e.g. FF:FF:FF:FF:FF:FF)
+     * Get the string representation of the MAC address (e.g. ff:ff:ff:ff:ff:ff)
      * @return the representation
      */
     std::string asString() const override;
