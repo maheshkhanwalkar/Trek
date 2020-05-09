@@ -4,32 +4,44 @@
 
 using namespace trek;
 
-MACAddress::MACAddress(uint64_t address) : address(address & 0xFFFFFFFFFFFF) { }
+MACAddress::MACAddress(uint64_t address) : address(address & 0xFFFFFFFFFFFFULL)
+{ }
 
 std::string MACAddress::asString() const
 {
-    // Switch to network (big endian) format
-    uint64_t good = htonll(address);
     std::stringstream stream;
 
-    // Skip the two bottom bytes -- since these encode bits 48-63 which are not
-    // actually part of the address
-    for(size_t i = 2; i < 8; i++) {
-        unsigned int byte = (good >> (i * 8)) & 0xFF;
-        stream << std::setfill ('0') << std::setw(2) << std::hex << byte;
+    // MAC addresses are 48-bit (6 bytes)
+    for(size_t i = 0; i < 6; i++) {
+        unsigned int byte = (address >> (i * 8U)) & 0xFFU;
 
-        // Don't add an extra ':' at the end
-        if(i != 7) {
+        if(byte == 0) {
+            stream << "00";
+        }
+
+        // Add each hexadecimal digit to the stream [backwards]
+        while(byte > 0) {
+            unsigned int digit = byte % 0x10U;
+            unsigned char value = digit > 9 ? 'a' + (digit - 0xA) : '0' + digit;
+
+            stream << value;
+            byte /= 0x10U;
+        }
+
+        if(i != 5) {
             stream << ":";
         }
     }
 
-    return stream.str();
+    std::string res(stream.str());
+    std::reverse(res.begin(), res.end());
+
+    return res;
 }
 
 bool MACAddress::operator==(const Address& rhs) const
 {
-    const MACAddress* other = dynamic_cast<const MACAddress*>(&rhs);
+    const auto* other = dynamic_cast<const MACAddress*>(&rhs);
 
     // Not a MAC address -- not equal
     if(other == nullptr) {
