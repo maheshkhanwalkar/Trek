@@ -14,18 +14,32 @@ static uint32_t convert(const std::string& fmt)
     uint32_t result = 0;
 
     // Three dots separating four octets
-    for(int i = 0; i < 3; i++) {
+    for(int i = 0; i < 4; i++) {
         size_t next = fmt.find_first_of('.', pos);
 
         if(next == std::string::npos) {
-            throw std::runtime_error("bad IPv4 address string\n");
+            // This was not expected -- throw an exception
+            if(i != 3) {
+                throw std::runtime_error("bad IPv4 address string\n");
+            }
+
+            break;
         }
 
-        std::string octet(pos, next);
+        size_t len = next - pos;
+        std::string octet(fmt.substr(pos, len));
 
-        unsigned char equiv = static_cast<unsigned char>(std::stoi(octet));
-        result = (result << 8) | equiv;
+        pos += len + 1;
+
+        auto equiv = static_cast<unsigned char>(std::stoi(octet));
+        result = (result << 8U) | equiv;
     }
+
+    // Last digit handling
+    std::string last(fmt.substr(pos));
+
+    auto equiv = static_cast<unsigned char>(std::stoi(last));
+    result = (result << 8U) | equiv;
 
     return result;
 }
@@ -41,7 +55,12 @@ std::string IPv4Address::asString() const
     std::stringstream stream;
 
     for(size_t i = 0; i < sizeof(uint32_t) /* 4 bytes */; i++) {
-        unsigned int byte = (address >> (i * 8)) & 0xFF;
+        unsigned int byte = (address >> (i * 8U)) & 0xFFU;
+
+        // Handle edge case of byte being 0 itself
+        if(byte == 0) {
+            stream << "0";
+        }
 
         // Add the digits in reverse order
         while(byte > 0) {
@@ -66,7 +85,7 @@ std::string IPv4Address::asString() const
 
 bool IPv4Address::operator==(const Address& rhs) const
 {
-    const IPv4Address* other = dynamic_cast<const IPv4Address*>(&rhs);
+    const auto* other = dynamic_cast<const IPv4Address*>(&rhs);
 
     // Not an IPv4 address, so not equal
     if(other == nullptr) {
