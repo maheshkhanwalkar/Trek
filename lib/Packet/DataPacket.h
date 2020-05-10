@@ -7,8 +7,6 @@ namespace trek {
 
 class DataPacket : public Packet {
 public:
-    // TODO need to add Headers
-
     /**
      * Construct a data packet with a simulated payload
      *
@@ -18,10 +16,12 @@ public:
      * @param id - packet id
      * @param src - source address
      * @param dest - destination address
+     * @param header - packet header
      * @param p_size - payload size
      */
     explicit DataPacket(int id, std::unique_ptr<Address> src,
-                        std::unique_ptr<Address> dest, uint32_t p_size);
+                        std::unique_ptr<Address> dest,
+                        std::unique_ptr<Header> header, uint32_t p_size);
 
     /**
      * Construct a data packet with an actual payload
@@ -36,8 +36,15 @@ public:
      * @param data - payload data
      */
     explicit DataPacket(int id, std::unique_ptr<Address> src,
-                        std::unique_ptr<Address> dest, uint32_t p_size,
+                        std::unique_ptr<Address> dest,
+                        std::unique_ptr<Header> header, uint32_t p_size,
                         std::vector<char>&& data);
+
+    /**
+     * Check whether the packet has a real payload
+     * @return true if it does, false otherwise
+     */
+    bool hasRealPayload() const;
 
 private:
     std::vector<char> data;
