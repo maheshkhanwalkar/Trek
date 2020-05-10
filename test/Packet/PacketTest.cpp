@@ -11,8 +11,8 @@ TEST(PacketTest, BasicCreation)
     trek::Packet* pkt = new trek::LightPacket(0, 10, label);
 
     ASSERT_EQ(pkt->getSize(), 10U);
-    ASSERT_EQ(pkt->getLabel().src.lock(), label.src.lock());
-    ASSERT_EQ(pkt->getLabel().dest.lock(), label.dest.lock());
+    ASSERT_EQ(pkt->getLabel().src, label.src);
+    ASSERT_EQ(pkt->getLabel().dest, label.dest);
 
     delete pkt;
 }
@@ -25,15 +25,15 @@ TEST(PacketTest, LabelUpdate)
     std::shared_ptr<trek::Node> start(new trek::Node(0, false, nullptr));
     std::shared_ptr<trek::Node> end(new trek::Node(1, true, nullptr));
 
-    trek::Label n_label;
+    trek::Label n_label{};
 
-    n_label.src = start;
-    n_label.dest = end;
+    n_label.src = start.get();
+    n_label.dest = end.get();
     pkt->setLabel(n_label);
 
     ASSERT_EQ(pkt->getSize(), 10U);
-    ASSERT_EQ(pkt->getLabel().src.lock(), n_label.src.lock());
-    ASSERT_EQ(pkt->getLabel().dest.lock(), n_label.dest.lock());
+    ASSERT_EQ(pkt->getLabel().src, n_label.src);
+    ASSERT_EQ(pkt->getLabel().dest, n_label.dest);
 }
 
 TEST(PacketTest, DataPacket)
@@ -43,13 +43,13 @@ TEST(PacketTest, DataPacket)
     std::vector<char> data;
     std::string msg("hello world");
 
-    for(size_t i = 0; i < msg.size(); i++)
-        data.emplace_back(msg.at(i));
+    for(char& i : msg)
+        data.emplace_back(i);
 
     trek::Packet* pkt = new trek::DataPacket(0, std::move(data), label);
     ASSERT_EQ(pkt->getSize(), msg.size());
 
-    trek::DataPacket* d_pkt = dynamic_cast<trek::DataPacket*>(pkt);
+    auto* d_pkt = dynamic_cast<trek::DataPacket*>(pkt);
     ASSERT_EQ(d_pkt->payloadAsStr(), msg);
 
     d_pkt = nullptr;

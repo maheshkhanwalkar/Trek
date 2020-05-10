@@ -14,8 +14,8 @@ class Node;
  *
  */
 struct Label {
-    std::weak_ptr<Node> src;
-    std::weak_ptr<Node> dest;
+    Node* src;
+    Node* dest;
 };
 
 /**

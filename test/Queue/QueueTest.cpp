@@ -26,8 +26,8 @@ TEST(QueueTest, BaseQueue)
         const trek::Packet& pkt = queue->peek();
 
         ASSERT_EQ(pkt.getSize(), 2*i+1);
-        ASSERT_EQ(pkt.getLabel().src.lock(), nullptr);
-        ASSERT_EQ(pkt.getLabel().dest.lock(), nullptr);
+        ASSERT_EQ(pkt.getLabel().src, nullptr);
+        ASSERT_EQ(pkt.getLabel().dest, nullptr);
 
         queue->pop_front();
         ASSERT_EQ(queue->size(), count - i - 1);
@@ -62,8 +62,8 @@ TEST(QueueTest, CountQueue)
         const trek::Packet& pkt = queue->peek();
 
         ASSERT_EQ(pkt.getSize(), 2*i+1);
-        ASSERT_EQ(pkt.getLabel().src.lock(), nullptr);
-        ASSERT_EQ(pkt.getLabel().dest.lock(), nullptr);
+        ASSERT_EQ(pkt.getLabel().src, nullptr);
+        ASSERT_EQ(pkt.getLabel().dest, nullptr);
 
         queue->pop_front();
         ASSERT_EQ(queue->size(), count - i - 1);
