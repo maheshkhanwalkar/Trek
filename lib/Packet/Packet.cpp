@@ -2,14 +2,14 @@
 
 using namespace trek;
 
-Packet::Packet(int id, uint32_t size, const Label& label) :
-    id(id), size(size), label(new Label(label)) {}
+Packet::Packet(int id, uint32_t size, std::unique_ptr<Address> src,
+   std::unique_ptr<Address> dest) : id(id), size(size), src(std::move(src)),
+                                                dest(std::move(dest)) { }
 
 uint32_t Packet::getSize() const { return size; }
-const Label& Packet::getLabel() const { return *label; }
 
-void Packet::setLabel(const Label& n_label)
-{
-    label->src = n_label.src;
-    label->dest = n_label.dest;
-}
+const Address& Packet::getSrc() const { return *src; }
+const Address& Packet::getDest() const { return *dest; }
+
+void Packet::updateSrc(const Address& n_src) { *src = n_src; }
+void Packet::updateDest(const Address& n_dest) { *dest = n_dest; }

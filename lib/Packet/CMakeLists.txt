@@ -1,4 +1,4 @@
 project(Packet)
 
-set(SOURCES Packet.cpp LightPacket.cpp DataPacket.cpp)
+set(SOURCES Packet.cpp)
 add_library(Packet ${SOURCES})

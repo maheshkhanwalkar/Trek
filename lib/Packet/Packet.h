@@ -2,21 +2,9 @@
 #include <cstdint>
 #include <memory>
 
+#include "lib/Address/Address.h"
+
 namespace trek {
-
-class Node;
-
-/**
- * Packet Label
- *
- * This class indicates both the source and destination nodes
- * for a particular packet.
- *
- */
-struct Label {
-    Node* src;
-    Node* dest;
-};
 
 /**
  * Packet
@@ -31,9 +19,11 @@ public:
      * Create a new packet
      * @param id - packet id
      * @param size - overall packet size
-     * @param label - packet label
+     * @param src - source address
+     * @param dest - destination address
      */
-    explicit Packet(int id, uint32_t size, const Label& label);
+    explicit Packet(int id, uint32_t size, std::unique_ptr<Address> src,
+                    std::unique_ptr<Address> dest);
 
     /**
      * Drop the packet
@@ -44,16 +34,28 @@ public:
     virtual void drop() = 0;
 
     /**
-     * Get the packet label
-     * @return a const reference to the label
+     * Get the source address
+     * @return a const ref to the source address
      */
-    const Label& getLabel() const;
+    const Address& getSrc() const;
 
     /**
-     * Update the packet label
-     * @param n_label - new label
+     * Get the destination address
+     * @return a const ref to the destination address
      */
-    void setLabel(const Label& n_label);
+    const Address& getDest() const;
+
+    /**
+     * Update the source address
+     * @param n_src - new source
+     */
+    void updateSrc(const Address& n_src);
+
+    /**
+     * Update the destination address
+     * @param n_dest - new destination
+     */
+    void updateDest(const Address& n_dest);
 
     /**
      * Get the size of the packet
@@ -69,7 +71,7 @@ public:
 protected:
     int id;
     uint32_t size;
-    std::unique_ptr<Label> label;
+    std::unique_ptr<Address> src, dest;
 };
 
 }
