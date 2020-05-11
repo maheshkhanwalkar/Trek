@@ -1,21 +1,21 @@
 #include "lib/Queue/Queue.h"
 #include "lib/Queue/CountQueue.h"
 #include "lib/Queue/ByteQueue.h"
-#include "lib/Packet/LightPacket.h"
+#include "lib/Address/IPv4Address.h"
+#include "lib/Packet/DataPacket.h"
 
 #include "gtest/gtest.h"
 
 TEST(QueueTest, BaseQueue)
 {
-    trek::Queue* queue = new trek::Queue;
+    auto* queue = new trek::Queue;
     int count = 1000;
 
     for(int i = 0; i < count; i++) {
-        trek::Label label{};
-        uint32_t size = static_cast<uint32_t>(2*i + 1);
+        auto size = static_cast<uint32_t>(2*i + 1);
 
         std::unique_ptr<trek::Packet> pkt(
-            new trek::LightPacket(i, size, label));
+            new trek::DataPacket(i, nullptr, nullptr, nullptr, size));
 
         queue->push_back(std::move(pkt));
     }
@@ -26,8 +26,8 @@ TEST(QueueTest, BaseQueue)
         const trek::Packet& pkt = queue->peek();
 
         ASSERT_EQ(pkt.getSize(), 2*i+1);
-        ASSERT_EQ(pkt.getLabel().src, nullptr);
-        ASSERT_EQ(pkt.getLabel().dest, nullptr);
+        ASSERT_EQ(pkt.getSrc(), nullptr);
+        ASSERT_EQ(pkt.getDest(), nullptr);
 
         queue->pop_front();
         ASSERT_EQ(queue->size(), count - i - 1);
@@ -44,11 +44,11 @@ TEST(QueueTest, CountQueue)
     unsigned int over = 1000;
 
     for(unsigned int i = 0; i < over; i++) {
-        trek::Label label{};
-        uint32_t size = static_cast<uint32_t>(2*i + 1);
+        auto size = static_cast<uint32_t>(2*i + 1);
 
         std::unique_ptr<trek::Packet> pkt(
-            new trek::LightPacket(static_cast<int>(i), size, label));
+            new trek::DataPacket(static_cast<int>(i), nullptr, nullptr, nullptr,
+                 size));
 
         queue->push_back(std::move(pkt));
     }
@@ -62,8 +62,8 @@ TEST(QueueTest, CountQueue)
         const trek::Packet& pkt = queue->peek();
 
         ASSERT_EQ(pkt.getSize(), 2*i+1);
-        ASSERT_EQ(pkt.getLabel().src, nullptr);
-        ASSERT_EQ(pkt.getLabel().dest, nullptr);
+        ASSERT_EQ(pkt.getSrc(), nullptr);
+        ASSERT_EQ(pkt.getDest(), nullptr);
 
         queue->pop_front();
         ASSERT_EQ(queue->size(), count - i - 1);
@@ -71,11 +71,11 @@ TEST(QueueTest, CountQueue)
 
     unsigned int more = small + 3;
     for(unsigned int i = over; i < over + more; i++) {
-        trek::Label label{};
-        uint32_t size = static_cast<uint32_t>(2*i + 1);
+        auto size = static_cast<uint32_t>(2*i + 1);
 
         std::unique_ptr<trek::Packet> pkt(
-            new trek::LightPacket(static_cast<int>(i), size, label));
+            new trek::DataPacket(static_cast<int>(i), nullptr, nullptr, nullptr,
+                    size));
 
         queue->push_back(std::move(pkt));
     }
@@ -94,11 +94,10 @@ TEST(QueueTest, ByteQueue)
     int amt = static_cast<int>(b_max);
 
     for(int i = 0; i < amt; i++) {
-        trek::Label label{};
         uint32_t size = 1;
 
         std::unique_ptr<trek::Packet> pkt(
-            new trek::LightPacket(i, size, label));
+            new trek::DataPacket(i, nullptr, nullptr, nullptr, size));
 
         queue->push_back(std::move(pkt));
     }
@@ -108,11 +107,10 @@ TEST(QueueTest, ByteQueue)
     ASSERT_EQ(queue->size(), 0);
 
     for(int i = 0; i < amt; i++) {
-        trek::Label label{};
         uint32_t size = 2;
 
         std::unique_ptr<trek::Packet> pkt(
-            new trek::LightPacket(i, size, label));
+            new trek::DataPacket(i, nullptr, nullptr, nullptr, size));
 
         queue->push_back(std::move(pkt));
     }
@@ -122,19 +120,17 @@ TEST(QueueTest, ByteQueue)
 
     queue->clear();
 
-    trek::Label label{};
-
     queue->push_back(std::unique_ptr<trek::Packet>(
-        new trek::LightPacket(0, 12, label)));
+        new trek::DataPacket(0, nullptr, nullptr, nullptr, 12)));
     queue->push_back(std::unique_ptr<trek::Packet>(
-        new trek::LightPacket(1, b_max - 12, label)));
+        new trek::DataPacket(1, nullptr, nullptr, nullptr, b_max - 12)));
     ASSERT_EQ(queue->size(), 2);
 
     queue->pop_front();
     ASSERT_EQ(queue->size(), 1);
 
     queue->push_back(std::unique_ptr<trek::Packet>(
-        new trek::LightPacket(2, 13, label)));
+        new trek::DataPacket(2, nullptr, nullptr, nullptr, 13)));
     ASSERT_EQ(queue->size(), 1);
 
     delete queue;
