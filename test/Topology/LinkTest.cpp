@@ -2,22 +2,19 @@
 #include "lib/Topology/Link.h"
 #include "lib/Topology/InstantLink.h"
 #include "lib/Topology/CapacityLink.h"
-#include "lib/Packet/LightPacket.h"
+#include "lib/Packet/DataPacket.h"
 
-trek::Node* make_node(int id, bool router)
+static inline trek::Node* make_node(int id, bool router)
 {
     std::unique_ptr<trek::Queue> queue(new trek::Queue);
-    trek::Node* node = new trek::Node(id, router, std::move(queue));
+    auto* node = new trek::Node(id, router, std::move(queue));
 
     return node;
 }
 
-trek::Packet* make_packet(uint32_t size = 100)
+static inline trek::Packet* make_packet(uint32_t size = 100)
 {
-    trek::Label label{};
-    trek::Packet* pkt = new trek::LightPacket(0, size, label);
-
-    return pkt;
+    return new trek::DataPacket(0, nullptr, nullptr, nullptr, size);
 }
 
 TEST(InstantLinkTest, SingleBusyLink)
