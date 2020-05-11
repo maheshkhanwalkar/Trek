@@ -15,7 +15,7 @@ namespace trek {
  */
 class Packet {
 
-public:
+protected:
     /**
      * Create a new packet
      * @param id - packet id
@@ -27,14 +27,7 @@ public:
     explicit Packet(int id, uint32_t size, std::unique_ptr<Address> src,
                     std::unique_ptr<Address> dest, std::unique_ptr<Header> hdr);
 
-    /**
-     * Drop the packet
-     *
-     * The underlying network has decided to drop (that is, discard) the packet
-     * so perform any implementation-specific event handling
-     */
-    virtual void drop() = 0;
-
+public:
     /**
      * Get the source address
      * @return a const ref to the source address
@@ -76,6 +69,9 @@ public:
      * @return the size
      */
     uint32_t getSize() const;
+
+
+    virtual void drop() {}
 
     /**
      * Destroy the packet (default behaviour)

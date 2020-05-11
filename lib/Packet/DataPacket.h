@@ -37,7 +37,7 @@ public:
      */
     explicit DataPacket(int id, std::unique_ptr<Address> src,
                         std::unique_ptr<Address> dest,
-                        std::unique_ptr<Header> header, uint32_t p_size,
+                        std::unique_ptr<Header> header,
                         std::vector<char>&& data);
 
     /**
@@ -46,8 +46,16 @@ public:
      */
     bool hasRealPayload() const;
 
+
+    /**
+     * Return the string representation of the payload
+     * @return the equivalent string
+     */
+    const std::string& payloadAsStr() const;
+
 private:
     std::vector<char> data;
+    std::string equiv;
 };
 
 }

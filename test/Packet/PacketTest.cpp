@@ -1,55 +1,70 @@
+#include "lib/Address/Address.h"
+#include "lib/Address/IPv4Address.h"
 #include "lib/Packet/Packet.h"
-#include "lib/Packet/LightPacket.h"
 #include "lib/Packet/DataPacket.h"
-#include "lib/Topology/Node.h"
 
 #include "gtest/gtest.h"
 
+/**
+ * Make an IP address
+ * @param ip - string representation
+ * @return the address instance
+ */
+static std::unique_ptr<trek::Address> make_addr(std::string ip)
+{
+    std::unique_ptr<trek::Address> ptr(new trek::IPv4Address(ip));
+    return ptr;
+}
+
 TEST(PacketTest, BasicCreation)
 {
-    const trek::Label label{};
-    trek::Packet* pkt = new trek::LightPacket(0, 10, label);
+    trek::Packet* pkt = new trek::DataPacket(0, make_addr("10.0.0.1"),
+        make_addr("10.0.0.2"), nullptr, 10U);
 
     ASSERT_EQ(pkt->getSize(), 10U);
-    ASSERT_EQ(pkt->getLabel().src, label.src);
-    ASSERT_EQ(pkt->getLabel().dest, label.dest);
+    ASSERT_EQ(*pkt->getSrc(), *make_addr("10.0.0.1"));
+    ASSERT_EQ(*pkt->getDest(), *make_addr("10.0.0.2"));
 
+    const auto* d_pkt = dynamic_cast<trek::DataPacket*>(pkt);
+    ASSERT_FALSE(d_pkt->hasRealPayload());
+
+    d_pkt = nullptr;
     delete pkt;
 }
 
 TEST(PacketTest, LabelUpdate)
 {
-    const trek::Label label{};
-    trek::Packet* pkt = new trek::LightPacket(0, 10, label);
+    trek::Packet* pkt = new trek::DataPacket(0, make_addr("10.0.0.1"),
+          make_addr("10.0.0.2"), nullptr, 10U);
 
-    std::shared_ptr<trek::Node> start(new trek::Node(0, false, nullptr));
-    std::shared_ptr<trek::Node> end(new trek::Node(1, true, nullptr));
+    ASSERT_EQ(*pkt->getSrc(), *make_addr("10.0.0.1"));
+    ASSERT_EQ(*pkt->getDest(), *make_addr("10.0.0.2"));
 
-    trek::Label n_label{};
+    pkt->updateSrc(make_addr("192.168.1.10"));
+    pkt->updateDest(make_addr("192.168.1.20"));
 
-    n_label.src = start.get();
-    n_label.dest = end.get();
-    pkt->setLabel(n_label);
-
+    ASSERT_EQ(*pkt->getSrc(), *make_addr("192.168.1.10"));
+    ASSERT_EQ(*pkt->getDest(), *make_addr("192.168.1.20"));
+    ASSERT_EQ(pkt->getHeader(), nullptr);
     ASSERT_EQ(pkt->getSize(), 10U);
-    ASSERT_EQ(pkt->getLabel().src, n_label.src);
-    ASSERT_EQ(pkt->getLabel().dest, n_label.dest);
+
+    delete pkt;
 }
 
 TEST(PacketTest, DataPacket)
 {
-    const trek::Label label{};
-
     std::vector<char> data;
     std::string msg("hello world");
 
     for(char& i : msg)
         data.emplace_back(i);
 
-    trek::Packet* pkt = new trek::DataPacket(0, std::move(data), label);
+    trek::Packet* pkt = new trek::DataPacket(0, make_addr("10.0.0.1"),
+         make_addr("10.0.0.2"), nullptr, std::move(data));
+
     ASSERT_EQ(pkt->getSize(), msg.size());
 
-    auto* d_pkt = dynamic_cast<trek::DataPacket*>(pkt);
+    const auto* d_pkt = dynamic_cast<trek::DataPacket*>(pkt);
     ASSERT_EQ(d_pkt->payloadAsStr(), msg);
 
     d_pkt = nullptr;
