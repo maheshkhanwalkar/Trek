@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "lib/Address/Address.h"
-#include "lib/Packet/Header.h"
+#include "lib/Header/Header.h"
 
 namespace trek {
 
