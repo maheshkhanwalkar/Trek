@@ -1,8 +1,8 @@
-#include "gtest/gtest.h"
-#include "lib/Topology/Link.h"
-#include "lib/Topology/InstantLink.h"
-#include "lib/Topology/CapacityLink.h"
+#include "lib/Link/Link.h"
+#include "lib/Link/CapacityLink.h"
+#include "lib/Link/InstantLink.h"
 #include "lib/Packet/DataPacket.h"
+#include "gtest/gtest.h"
 
 static inline trek::Node* make_node(int id, bool router)
 {

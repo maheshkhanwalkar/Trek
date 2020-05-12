@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Link.h"
+#include "lib/Link/Link.h"
 #include <cstdint>
 
 namespace trek {

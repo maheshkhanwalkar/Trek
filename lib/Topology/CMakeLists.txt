@@ -1,6 +1,6 @@
 project(Topology)
 
-set(SOURCES Node.cpp Link.cpp InstantLink.cpp CapacityLink.cpp)
+set(SOURCES Node.cpp)
 add_library(Topology ${SOURCES})
 
-target_link_libraries(Topology PRIVATE Packet Queue)
+target_link_libraries(Topology PRIVATE Packet Queue Link)

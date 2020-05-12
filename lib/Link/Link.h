@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Node.h"
 #include "lib/Packet/Packet.h"
+#include "lib/Topology/Node.h"
 
 #include <memory>
 
