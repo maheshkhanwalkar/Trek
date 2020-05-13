@@ -39,8 +39,7 @@ public:
      * @param which - originating node
      * @param packet - packet to transfer
     */
-    virtual void initiate(const Node* which, std::unique_ptr<Packet> packet)
-        = 0;
+    virtual void initiate(const Node* which, std::unique_ptr<Packet> packet) = 0;
 
     /**
      * Perform a packet transfer for the simulation time-slice
