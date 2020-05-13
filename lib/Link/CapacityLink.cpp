@@ -1,6 +1,7 @@
 #include "CapacityLink.h"
 
 #include <utility>
+#include <cmath>
 
 using namespace trek;
 

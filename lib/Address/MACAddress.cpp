@@ -1,6 +1,7 @@
 #include "MACAddress.h"
 #include <iomanip>
 #include <sstream>
+#include <algorithm>
 
 using namespace trek;
 

@@ -6,6 +6,7 @@
 #include <memory>
 
 namespace trek {
+
 /**
  * Node representation
  * This class represents a node within the network topology.

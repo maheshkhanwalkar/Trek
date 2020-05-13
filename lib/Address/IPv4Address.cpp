@@ -1,5 +1,6 @@
 #include "IPv4Address.h"
 #include <sstream>
+#include <algorithm>
 
 using namespace trek;
 
