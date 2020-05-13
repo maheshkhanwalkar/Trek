@@ -7,7 +7,7 @@ using namespace trek;
 
 CapacityLink::CapacityLink(Node* first, Node* second, bool duplex,
                            uint64_t throughput, double slice)
-    : Link(first, second, duplex), bps(throughput),
+    : PointLink(first, second, duplex), bps(throughput),
       bf_curr(0), bs_curr(0), slice(slice) {}
 
 

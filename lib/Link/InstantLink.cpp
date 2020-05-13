@@ -4,7 +4,7 @@
 using namespace trek;
 
 InstantLink::InstantLink(Node* first, Node* second, bool duplex)
-    : Link(first, second, duplex)
+    : PointLink(first, second, duplex)
 {
 
 }

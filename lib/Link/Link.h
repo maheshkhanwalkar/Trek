@@ -1,50 +1,46 @@
 #pragma once
-
-#include "lib/Packet/Packet.h"
 #include "lib/Topology/Node.h"
-
-#include <memory>
 
 namespace trek {
 
 /**
  * Transfer link
  *
- * This class represents a transfer link that connects two nodes within
- * the greater network topology.
+ * This class represents a general transfer link, which allows connected nodes
+ * to communicate with one another.
  *
- * Transfer links can operate in single or duplex mode. In single mode, only one
- * node can use the link at a time to transfer data. However, in duplex mode,
- * both of the nodes can transfer at the same time.
+ * This library supports two general types of transfer links, which are then
+ * further broken down into multiple types:
  *
- * This is an abstract class, so it cannot be used directly. The various
- * subclasses implement different kinds of links, which may be more or less
- * useful, depending on the simulation requirements.
+ *   1. Point-transfer links
+ *      These links connect two nodes together. This type of link is the basis
+ *      of efficient point-to-point transfer interconnects.
+ *
+ *   2. Bus-based links
+ *      This link connects multiple nodes together via a shared bus. This is
+ *      used, as the name implies, to simulate bus-based communication.
+ *
+ * The node itself does not necessarily need to know about the specific details
+ * of the underlying interconnect system -- it simply treats the connection as
+ * a generic link which it can read from or write to.
  */
 class Link {
+
 public:
     /**
-     * Construct a new link between nodes
-     * @param first - first node
-     * @param second - second node
-     * @param duplex - can both nodes send data at the same time?
-     */
-    explicit Link(Node* first, Node* second, bool duplex);
-
-    /**
-     * Get whether the link is busy
+     * Check whether the link is busy
      * @param which - requesting node
      * @return true if busy, false otherwise
      */
-    virtual bool isBusy(const Node* which);
+    virtual bool isBusy(const Node* which) = 0;
 
     /**
      * Initiate a transfer on the link
      * @param which - originating node
      * @param packet - packet to transfer
-     * @throws std::runtime_error if the link is currently busy
-     */
-    virtual void initiate(const Node* which, std::unique_ptr<Packet> packet);
+    */
+    virtual void initiate(const Node* which, std::unique_ptr<Packet> packet)
+        = 0;
 
     /**
      * Perform a packet transfer for the simulation time-slice
@@ -55,12 +51,6 @@ public:
      * Destroy the link (default behaviour)
      */
     virtual ~Link() = default;
-
-protected:
-    Node *first, *second;
-    std::unique_ptr<Packet> f_curr, s_curr;
-
-    bool duplex;
 };
 
 }

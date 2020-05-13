@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lib/Link/Link.h"
+#include "lib/Link/PointLink.h"
 #include <cstdint>
 
 namespace trek {
@@ -15,7 +15,7 @@ namespace trek {
  * to transfer() before the link becomes ready again. This calculation is done
  * using the packet size, link throughput, and simulation time-slice.
  */
-class CapacityLink : public Link {
+class CapacityLink : public PointLink {
 public:
     /**
      * Create a new capacity link between two nodes

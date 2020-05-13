@@ -1,4 +1,4 @@
 project(Link)
 
-set(SOURCES Link.cpp InstantLink.cpp CapacityLink.cpp)
+set(SOURCES PointLink.cpp InstantLink.cpp CapacityLink.cpp Link.h)
 add_library(Link ${SOURCES})

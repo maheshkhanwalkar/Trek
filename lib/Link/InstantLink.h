@@ -1,5 +1,5 @@
 #pragma once
-#include "Link.h"
+#include "PointLink.h"
 
 namespace trek {
 
@@ -14,7 +14,7 @@ namespace trek {
  * see CapacityLink. However, in cases where link-based bottlenecks are
  * ignored or not present, then this class becomes useful.
  */
-class InstantLink : public Link {
+class InstantLink : public PointLink {
 public:
     /**
      * Create an instant link between two nodes
