@@ -131,4 +131,6 @@ TEST(CapacityLinkTest, DuplexTest)
     link->transfer();
     ASSERT_FALSE(link->isBusy(first.get()));
     ASSERT_FALSE(link->isBusy(second.get()));
+
+    delete link;
 }
